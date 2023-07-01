@@ -1,6 +1,6 @@
 <nav class="sidebar">
     <div class="sidebar-header">
-      <a href="#" class="sidebar-brand">
+      <a href="{{route('admin.dashboard')}}" class="sidebar-brand">
         Cv<span>SU</span>
       </a>
       <div class="sidebar-toggler not-active">
