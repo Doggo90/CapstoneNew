@@ -44,7 +44,11 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::post('/admin/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
     Route::get('/admin/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
 });// END ADMIN MIDDLEWARE
+Route::middleware(['auth', 'role:user'])->group(function(){
 
+    
+});// END USER MIDDLEWARE
+Route::get('/profile/{user}', [UserController::class, 'profile'])->name('user.profile');
 
 //AGENT MIDDLEWARE  
 Route::middleware(['auth', 'role:agent'])->group(function(){
@@ -53,10 +57,10 @@ Route::middleware(['auth', 'role:agent'])->group(function(){
 
 });// END AGENT MIDDLEWARE  
 
-// GOOGLE LOG IN ROUTES
+// GOOGLE LOG IN API
 Route::get('/auth/google/redirect', [ProviderController::class,'redirect']);
 Route::get('/auth/google/callback', [ProviderController::class,'callback']);
-// END GOOGLE LOG IN ROUTES
+// END GOOGLE LOG IN API
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
 
@@ -65,9 +69,11 @@ Route::get('/listings/create',[ListingController::class, 'create'])->name('listi
 Route::post('/listings',[ListingController::class, 'store'])->name('listings.store');
 
 Route::get('/listings/{listing}/edit',[ListingController::class, 'edit'])->name('listings.edit');
+Route::put('/listings/{listing}', [ListingController::class, 'update']);
 
 Route::delete('/listings/{listing}', [ListingController::class, 'delete'])->name('listings.delete');
 
 Route::get('/listings/{listing}', [ListingController::class, 'show'])->name('listings.show');
+
 
 Route::get('/logout', [UserController::class, 'Logout'])->name('user.logout');

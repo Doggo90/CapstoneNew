@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended($url);
+        return redirect()->intended($url)->with('message', 'Logged In Successfully!');
     }
 
     /**

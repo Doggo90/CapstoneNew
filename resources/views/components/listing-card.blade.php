@@ -7,13 +7,13 @@
             alt=""/>
         </a>
         
-        <div>
+        <div><br>
             <h3 class="text-2xl">
                 <a href="/listings/{{$listing->id}}">{{$listing->title}}</a>
             </h3>
-            <div class="text-xl font-bold mb-4">{{$listing->body}}</div>
-            <x-listing-tags :tagsCsv="$listing->tags"/><br>
-            <small><span class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Created at: </span>{{$listing->created_at}}</small>
+            <br><br>
+            <x-listing-tags :tagsCsv="$listing->tags"/>
+            <small><span class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Created at: {{$listing->created_at}} </span></small>
         </div>
     </div>
 </x-card>

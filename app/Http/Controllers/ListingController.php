@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
@@ -23,7 +24,6 @@ class ListingController extends Controller
     public function store(Request $request){
         $formFields = $request->validate([
             'title' => 'required',
-            'logo' => 'required',
             'tags' => 'required',
             'body' => 'required'
         ]);
@@ -34,7 +34,7 @@ class ListingController extends Controller
             $formFields['logo']->move(public_path('images'),$filename);
             $formFields['logo'] = $filename;
         }
-
+        $formFields['user_id'] = Auth::id();
         Listing::create($formFields);
 
         // $notification = array(
@@ -44,13 +44,12 @@ class ListingController extends Controller
         return redirect('/index')->with('message', 'Post Created Successfully!');
     }
     public function edit(Listing $listing){
-
+        
         return view('listings.edit', ['listing' => $listing]);
     }
-    public function update(Request $request, Listing $listing ){
+    public function update(Request $request, Listing $listing){
         $formFields = $request->validate([
             'title' => 'required',
-            'logo' => 'required',
             'tags' => 'required',
             'body' => 'required'
         ]);
@@ -63,12 +62,13 @@ class ListingController extends Controller
         }
 
         $listing->update($formFields);
-
         // $notification = array(
         //     'message' => 'Post Created Successfully',
         //     'alert-type' => 'success'
         // );
-        return back()->with('message', 'Post Updated Successfully!');
+        // return back()->with('message', 'Post Updated Successfully!');
+        // dd($listing);
+        return redirect('/index')->with('message', 'Post Updated Successfully!');
     }
     public function delete(Listing $listing){
         $listing->delete();

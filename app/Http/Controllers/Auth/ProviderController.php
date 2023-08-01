@@ -23,6 +23,7 @@ class ProviderController extends Controller
             'username' => User::generateUsername($googleUser->nickname),
             'email' => $googleUser->email,
             'google_token' => $googleUser->token,
+            'photo' => $googleUser->getAvatar(),
         ]);
      
         Auth::login($user);

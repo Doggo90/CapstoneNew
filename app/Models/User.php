@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Str;
+use App\Models\Listing;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,5 +50,9 @@ class User extends Authenticatable
             $username = $newUsername.Str::lower(Str::random(3));
         }
         return $username;
+    }
+    public function listings()
+    {
+        return $this->hasMany(Listing::class);
     }
 }

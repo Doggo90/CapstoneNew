@@ -70,11 +70,12 @@
 
             <div class="mb-6">
                 <button
+                    type = "submit" 
                     class="bg-lime-500 text-white rounded py-2 px-4 hover:bg-black">
                     Finish Editing
                 </button>
 
-                <a href="/index" class="text-black ml-4"> Back </a>
+                <a class="bg-lime-500 text-white rounded py-2 px-4 hover:bg-black" href="/listings/{{$listing->id}}" class="text-black ml-4"> Back </a>
             </div>
         </form>
     </x-card>
