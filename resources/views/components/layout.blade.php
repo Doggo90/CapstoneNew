@@ -5,11 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="images/logo1.png" />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        />
-        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+        @livewireStyles
             <!-- Toastr CSS -->  
             <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
             <!-- End Toastr CSS --> 
@@ -27,6 +24,7 @@
             };
         </script>
         <title>CvSU Acad Forum</title>
+
     </head> 
     <body class="mb-48">
         <nav class="flex justify-between items-center mb-4">
@@ -113,6 +111,7 @@
             <p class="ml-2">Copyright &copy; 2023, All Rights reserved</p>
         </footer>
         <x-flash-message/>
+        @livewireScripts
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Toastr js -->

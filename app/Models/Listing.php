@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Usamamuneerchaudhary\Commentify\Traits\Commentable;
+use Usamamuneerchaudhary\Commentify\Traits\HasUserAvatar;
+
 
 class Listing extends Model
 {
-    use HasFactory;
+    use HasFactory, Commentable, HasUserAvatar;
+    
 
     protected $guarded=[];
     public function scopeFilter($query, array $filters){

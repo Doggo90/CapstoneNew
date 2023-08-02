@@ -19,7 +19,7 @@
                     </div>
                 </x-card>
                 @if (auth()->user())
-                    <x-card>
+                    {{-- <x-card>
                         <div class="flex flex-col text-left">
                                 <label
                                     for="body"
@@ -40,9 +40,9 @@
                                     class="bg-lime-500 text-white rounded py-2 px-4 hover:bg-black">
                                     Comment
                         </button>
-                    </x-card>
+                    </x-card> --}}
                 @endif
-                
+                <livewire:comments :model="$listing"/>
                 @auth
                     
                 <x-card class="mt-4 p-2 flex space-x-6">
