@@ -44,38 +44,8 @@
                         <h3>{{ $user->phone }}</h3>
                     @else
                     
-                    <script>
-                        function confirmPhoneNumber() {
-                            console.log('Confirming phone number...');
-                            const phoneNumber = document.getElementById('phone').value;
-                            if (phoneNumber.trim() !== '') {
-                                // Show the Tailwind CSS modal
-                                document.getElementById('confirmationModal').classList.remove('hidden');
-                                document.getElementById('confirmationModal').classList.add('flex');
-                            }
-                        }
-
-                        function closeModal() {
-                            // Hide the Tailwind CSS modal
-                            document.getElementById('confirmationModal').classList.add('hidden');
-                            document.getElementById('confirmationModal').classList.remove('flex');
-                        }
-
-                        function submitForm() {
-                            console.log('Submitting form...');
-                            // Prevent the default form submission behavior
-                            event.preventDefault();
-
-                            // Hide the Tailwind CSS modal
-                            closeModal();
-
-                            // Manually submit the form
-                            // document.querySelector('form').submit();
-                            console.log();
-                            
-                        }
-                    </script>
-                    <form action="{{ route('user.update.phone',['id' => $user->id]) }}" method="POST" onsubmit="return false;">
+                    
+                    <form action="{{ route('user.update.phone',['id' => $user->id]) }}" method="POST" id="updatePhoneForm">
                         @csrf
                         <label for="phone">Phone Number:</label>
                         <input type="number" name="phone" id="phone" placeholder="Enter your phone number">
@@ -122,7 +92,35 @@
                         </div>
                     </div>
                     
-                    
+                    <script>
+                        function confirmPhoneNumber() {
+                            const phoneNumber = document.getElementById('phone').value;
+                            if (phoneNumber.trim() !== '') {
+                                // Show the Tailwind CSS modal
+                                document.getElementById('confirmationModal').classList.remove('hidden');
+                                document.getElementById('confirmationModal').classList.add('flex');
+                            }   
+                        }
+
+                        function closeModal() {
+                            // Hide the Tailwind CSS modal
+                            document.getElementById('confirmationModal').classList.add('hidden');
+                            document.getElementById('confirmationModal').classList.remove('flex');
+                        }
+
+                        function submitForm() {
+                            // Hide the Tailwind CSS modal
+                            closeModal();
+
+                            // Manually submit the form
+                            const form = document.getElementById('updatePhoneForm');
+                            if (form) {
+                                form.submit();
+                            } else {
+                                console.error("Form not found.");
+                            }
+                        }
+                    </script>
                     
                     @endif
                     

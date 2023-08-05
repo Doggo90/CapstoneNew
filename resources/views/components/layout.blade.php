@@ -36,7 +36,7 @@
             @include('partials._search')
     <div>
         @auth     
-        <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" class="text-black bg-green-400 hover:bg-lime-600 focus:ring-4 focus:outline-none focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-green-400 dark:hover:bg-green-400 dark:focus:ring-green-400" type="button">
+        <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" class="text-black bg-green-400 hover:bg-lime-400 focus:ring-4 focus:outline-none focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-green-400 dark:hover:bg-green-400 dark:focus:ring-green-400" type="button">
             
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 18">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-2 3h4a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
@@ -46,21 +46,21 @@
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
         </svg></button>
         <!-- Dropdown menu -->
-        <div id="dropdownInformation" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+        <div id="dropdownInformation" class="z-10 hidden bg-green-400 hover:bg-lime-400 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-green-400 dark:divide-lime-400">
             
-            <div class="px-4 py-3 text-sm text-gray-900 dark:text-white" style="z-index: 9999;">
+            <div class="px-4 py-3 text-sm text-black-900 dark:text-black dark:hover:bg-green-400" style="z-index: 9999;">
             <div>{{$user->name}}</div>
             </div>
             
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
             <li>
-                <a href="{{ route('user.profile', ['user' => $user->id]) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                <a href="{{ route('user.profile', ['user' => $user->id]) }}" class="block px-4 py-2 hover:bg-green-400 dark:hover:bg-lime-600 dark:hover:text-black">Profile</a>
             </li>
             <li>
-                <a href="{{route('listings.create')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Create Post</a>
+                <a href="{{route('listings.create')}}" class="block px-4 py-2 hover:bg-green-400 dark:hover:bg-lime-600 dark:hover:text-black">Create Post</a>
             </li>
             <li>
-                <a href="{{route('user.logout')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Log out</a>
+                <a href="{{route('user.logout')}}" class="block px-4 py-2 hover:bg-green-400 dark:hover:bg-lime-600 dark:hover:text-black">Log out</a>
             </li>
             </ul>
         

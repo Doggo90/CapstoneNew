@@ -40,7 +40,6 @@ class UserController extends Controller
         $data = User::find($id);
         $data -> phone = $request -> phone;
         $data ->save();
-        dd($request->all());
         return redirect()->back()->with('message','Phone Registered Successfully!');;
     }
 
