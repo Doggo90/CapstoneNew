@@ -20,7 +20,7 @@ class AdminController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/admin/login');
+        return redirect('/login');
     }//End Method
     public function AdminLogin(){
 
@@ -90,6 +90,6 @@ class AdminController extends Controller
             'message' => 'Role Updated Successfully',
             'alert-type' => 'success'
         );
-        return redirect('/admin/roles/manage')->with($notification);
+        return redirect()->back()->with($notification);
     }
 }

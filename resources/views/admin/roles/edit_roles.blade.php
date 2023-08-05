@@ -10,6 +10,7 @@
             <option value="{{ $roleId }}">{{ $roleName }}</option>
         @endforeach --}}
 
+            <option hidden selected>{{$user_id->role}}</option>
             <option value="admin">Admin</option>
             <option value="agent">Agent</option>
             <option value="user">User</option>

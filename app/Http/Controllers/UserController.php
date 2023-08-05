@@ -34,5 +34,15 @@ class UserController extends Controller
     
         return view('user.user_profile', compact('user', 'listings'));
     }
+    public function storePhone(Request $request)
+    {
+        $id = Auth::user()->id;
+        $data = User::find($id);
+        $data -> phone = $request -> phone;
+        $data ->save();
+        dd($request->all());
+        return redirect()->back()->with('message','Phone Registered Successfully!');;
+    }
+
 
 }

@@ -13,11 +13,12 @@
                             <p>{{$listing->body}}</p>
                         </div>
                         <br><br>
-                        <small><span class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Created at: </span>{{$listing->created_at}}</small>
-                        <br>
-                        <x-listing-tags :tagsCsv="$listing->tags"/><br>
                     </div>
                 </x-card>
+                <br><br>
+                <small><span class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Created at: </span>{{$listing->created_at}}</small>
+                <br><br>
+                <x-listing-tags :tagsCsv="$listing->tags"/>
                 @if (auth()->user())
                     {{-- <x-card>
                         <div class="flex flex-col text-left">

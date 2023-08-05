@@ -75,9 +75,14 @@
                 @endforeach
                 
             </tbody>
+            
         </table>
+        
         </div>
     </div> 
+    {{-- {{ $allUsers->links()}}
+    {{ $users->links()}} --}}
+
     </div>
 </div>
 

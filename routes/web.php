@@ -49,9 +49,10 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 });// END ADMIN MIDDLEWARE
 Route::middleware(['auth', 'role:user'])->group(function(){
 
+    Route::get('/profile/{user}', [UserController::class, 'profile'])->name('user.profile');
+    Route::post('/profile/store', [UserController::class, 'storePhone'])->name('user.update.phone');
     
 });// END USER MIDDLEWARE
-Route::get('/profile/{user}', [UserController::class, 'profile'])->name('user.profile');
 
 //AGENT MIDDLEWARE  
 Route::middleware(['auth', 'role:agent'])->group(function(){
