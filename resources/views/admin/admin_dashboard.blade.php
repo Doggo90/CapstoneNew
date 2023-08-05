@@ -16,16 +16,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <!-- End fonts -->
-	{{-- <!-- Plugin css for this page --> --}}
-	<link rel="stylesheet" href="{{ asset(' backend/assets/vendors/flatpickr/flatpickr.min.css' )}}">
-	{{-- <!-- End plugin css for this page --> --}}
 	<!-- core:css -->
 	<link rel="stylesheet" href="{{ asset(' backend/assets/vendors/core/core.css' )}}">
 	<!-- endinject -->
-
-	<!-- Plugin css for this page -->
-	<link rel="stylesheet" href="{{ asset( 'backend/assets/vendors/flatpickr/flatpickr.min.css' )}}">
-	<!-- End plugin css for this page -->
   
 
 	<!-- inject:css -->
@@ -57,6 +50,8 @@
         @include('admin.body.header')
 			<!-- partial -->
 
+     
+      <br><br><br>
         @yield('admin')
 
 			<!-- partial:partials/_footer.html -->
@@ -66,14 +61,11 @@
 	</div>
 	</div>
 
+
 	<!-- core:js -->
 	<script src="{{ asset('backend/assets/vendors/core/core.js') }}"></script>
 	<!-- endinject -->
 
-	<!-- Plugin js for this page -->
-  <script src="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/vendors/apexcharts/apexcharts.min.js') }}"></script>
-	<!-- End plugin js for this page -->
 
 	<!-- inject:js -->
 	<script src="{{ asset('backend/assets/vendors/feather-icons/feather.min.js') }}"></script>
@@ -84,10 +76,6 @@
   <script src="{{ asset('backend/assets/js/dashboard-dark.js') }}"></script>
 	<!-- End custom js for this page -->
 
-  	<!-- Plugin js for this page -->
-    <script src="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/vendors/apexcharts/apexcharts.min.js') }}"></script>
-      <!-- End plugin js for this page -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <!-- Toastr js -->

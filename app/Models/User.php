@@ -41,6 +41,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function scopeFilter($query, array $filters){
+
+        $query-> where('name', 'like', '%' . request('tag'). '%');
+
+        if($filters['search'] ?? false){
+            $query-> where('name', 'like', '%' . request('search'). '%')
+            ->orWhere('email', 'like', '%' . request('search'). '%')
+            ->orWhere('phone', 'like', '%' . request('search'). '%')
+            ->orWhere('role', 'like', '%' . request('search'). '%');
+        }
+         
+    }
     public static function generateUsername($username){
         if($username === null){
             $username = Str::lower(Str::random(8));

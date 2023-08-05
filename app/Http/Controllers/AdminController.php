@@ -68,8 +68,28 @@ class AdminController extends Controller
     }//End Method
 
     public function ManageRoles(){
+        $usersQuery = User::query();
+        $users = $usersQuery->filter(request(['search']))->get();
+        $allUsers = User::get();
+        return view('admin.roles.manage_roles', compact('users', 'allUsers'));
 
-        return view('admin.roles.manage_roles');
+    }
+    public function EditRoles($id){
 
+        $user_id = User::findorfail($id);
+        // $users = User::all();
+        $roles = User::pluck('name', 'id');
+        return view('admin.roles.edit_roles', compact('user_id','roles'));
+    }
+    public function UpdateRoles(Request $request){
+        // dd($request);
+        $data = User::findOrFail($request->id);
+        $data->role = $request->role;
+        $data->save();
+        $notification = array(
+            'message' => 'Role Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect('/admin/roles/manage')->with($notification);
     }
 }
