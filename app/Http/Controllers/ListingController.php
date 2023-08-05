@@ -8,11 +8,26 @@ use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
-    public function index(){
-        return view('listings.index',[
-            'listings' => Listing::latest()->filter(request(['tag','search']))->get()
-        ]);
+    public function index(Request $request)
+    {
+        $sortBy = $request->input('sort_by', 'created_at');
+    
+        $listingsQuery = Listing::query();
+    
+        // Apply sorting based on the selected criteria
+        if ($sortBy === 'title') {
+            $listingsQuery->orderBy('title');
+        } elseif ($sortBy === 'tags') {
+            $listingsQuery->orderBy('tags');
+        } elseif ($sortBy === 'created_at') {
+            $listingsQuery->latest();
+        }
+    
+        $listings = $listingsQuery->filter(request(['tag', 'search']))->get();
+    
+        return view('listings.index', compact('listings', 'sortBy'));
     }
+    
     public function show(Listing $listing){
         return view('listings.show',[
             'listing' => $listing

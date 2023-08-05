@@ -43,6 +43,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
     Route::post('/admin/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
     Route::get('/admin/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
+    Route::get('/admin/roles/manage', [AdminController::class, 'ManageRoles'])->name('admin.roles.manage');
 });// END ADMIN MIDDLEWARE
 Route::middleware(['auth', 'role:user'])->group(function(){
 

@@ -18,7 +18,7 @@
             <span class="link-title">Dashboard</span>
           </a>
         </li>
-        <li class="nav-item nav-category">web apps</li>
+        <li class="nav-item nav-category">web apps (to be added)</li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
             <i class="link-icon" data-feather="mail"></i>
@@ -55,15 +55,14 @@
                 {{--     ROLES SECTION         ROLES SECTION         ROLES SECTION         ROLES SECTION         ROLES SECTION    --}}
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#errorPages" role="button" aria-expanded="false" aria-controls="errorPages">
-              <i class="link-icon" data-feather="cloud-off"></i>
+              <i class="link-icon" data-feather="users"></i>
               <span class="link-title">Roles</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="errorPages">
               <ul class="nav sub-menu">
                 <li class="nav-item">
-                  <a href="pages/error/404.html" class="nav-link">Roles</a>
-                
+                  <a href="{{route('admin.roles.manage')}}" class="nav-link">Manage Roles</a>
               </ul>
             </div>
           </li>
@@ -78,7 +77,11 @@
           <div class="collapse" id="general-pages">
             <ul class="nav sub-menu">
               <li class="nav-item">
-                <a href="pages/general/blank-page.html" class="nav-link">Blank page</a>
+                <a href="pages/general/blank-page.html" class="nav-link">Current</a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/general/blank-page.html" class="nav-link">Make New</a>
+              </li>
             </ul>
           </div>
         </li>
@@ -93,6 +96,24 @@
             <ul class="nav sub-menu">
               <li class="nav-item">
                 <a href="pages/auth/login.html" class="nav-link">Sample Post</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item nav-category">Manage</li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#manage" role="button" aria-expanded="false" aria-controls="manage">
+            <i class="link-icon" data-feather="unlock"></i>
+            <span class="link-title">Manage Users</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+          </a>
+          <div class="collapse" id="manage">
+            <ul class="nav sub-menu">
+              <li class="nav-item">
+                <a href="pages/auth/login.html" class="nav-link">Users/Students</a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/auth/login.html" class="nav-link">Teachers/Co-Admins</a>
               </li>
             </ul>
           </div>

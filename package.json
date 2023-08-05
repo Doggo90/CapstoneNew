@@ -16,6 +16,8 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@headlessui/react": "^1.7.16",
+        "@heroicons/react": "^2.0.18",
         "flowbite": "^1.8.0"
     }
 }
