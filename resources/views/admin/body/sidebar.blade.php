@@ -95,7 +95,7 @@
           <div class="collapse" id="authPages">
             <ul class="nav sub-menu">
               <li class="nav-item">
-                <a href="pages/auth/login.html" class="nav-link">Sample Post</a>
+                <a href="{{route('admin.posts.allposts')}}" class="nav-link">All Posts</a>
               </li>
             </ul>
           </div>

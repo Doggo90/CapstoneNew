@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -90,6 +91,18 @@ class AdminController extends Controller
             'message' => 'Role Updated Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
+        return redirect('/admin/roles/manage')->with($notification);
+    }
+
+    public function AllPosts(){
+        $users = User::all();
+        $listingAuthors = Listing::with('author')->get();
+
+        // dd($listingAuthors);
+        return view('admin.posts.all_posts', compact('users', 'listingAuthors'));
+    }
+    public function deletePost(Listing $listing){
+        $listing->delete();
+        return redirect('/admin/posts/allposts')->with('message', 'Post Deleted Successfully');
     }
 }
