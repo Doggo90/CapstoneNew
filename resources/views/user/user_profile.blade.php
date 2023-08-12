@@ -164,7 +164,7 @@
                                 @foreach ($listings as $listing)
                                 <li>
                                     <div class="text-gray-800 font-bold text-xl my-1"><a href="/listings/{{$listing->id}}">{{$listing->title}}</a></div>
-                                    <div class="text-gray-500 text-xs">Created at: {{$listing->created_at}}</div>
+                                    <div class="text-gray-500 text-xs">Created at:{{$listing->created_at->format('M j, Y, g:i A')}}</div>
                                 </li>
                                     <br>
                                 @endforeach
