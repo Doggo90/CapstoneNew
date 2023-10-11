@@ -8,12 +8,15 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Comments;
 use App\Models\User;
 use App\Http\Controllers\CommentsController;
+use App\Models\Announcement;
+
 
 class ListingController extends Controller
 {
     public function index(Request $request)
     {
         $sortBy = $request->input('sort_by', 'created_at');
+        $announcements = Announcement::all();
 
         $listingsQuery = Listing::query();
 
@@ -27,17 +30,16 @@ class ListingController extends Controller
         }
 
         $listings = $listingsQuery->filter(request(['tag', 'search']))->get();
-
-        return view('listings.index', compact('listings', 'sortBy'));
+        return view('listings.index', compact('listings', 'sortBy', 'announcements'));
     }
 
     public function show(Listing $listing, Comments $comment){
 
         $users = User::all();
         $comments = Comments::with('author')->get();
-        $author = $comment->author;
-        $authorPhoto = $author->photo;
-        return view('listings.show', compact('listing', 'comments', 'author' , 'authorPhoto'));
+        $userPhoto = User::pluck('photo');
+        // dd($commentsAuthor);
+        return view('listings.show', compact('listing', 'comments', 'userPhoto', 'users'));
     }
     public function create(){
         return view('listings.create');
@@ -56,7 +58,7 @@ class ListingController extends Controller
             $formFields['logo'] = $filename;
         }
         $formFields['user_id'] = Auth::id();
-        // $user = auth()->user(); // Assuming you're using Laravel's authentication
+        // $user = auth()->user();
         // $user->increment('reputation', 1);
         Listing::create($formFields);
 

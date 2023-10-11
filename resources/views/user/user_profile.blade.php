@@ -40,11 +40,10 @@
                     <img class="w-32 h-32 rounded-full mx-auto" src="{{ (!empty($user->photo)) ? url($user->photo) : url('upload/no_image.jpg')}}" alt="profile">
                     <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{$user->name}}</h1>
                     <h3 class="text-gray-600 font-lg text-semibold leading-6">{{$user->email}}</h3>
+                @if($user->id === (auth()->user()->id))
                     @if($user->phone)
                         <h3>{{ $user->phone }}</h3>
                     @else
-
-
                     <form action="{{ route('user.update.phone',['id' => $user->id]) }}" method="POST" id="updatePhoneForm">
                         @csrf
                         <label for="phone">Phone Number:</label>
@@ -123,7 +122,9 @@
                     </script>
 
                     @endif
-
+                    @else
+                    <h3>{{ $user->phone }}</h3>
+                @endif
                     <ul
                         class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
                         <li class="flex items-center py-3">
@@ -164,7 +165,9 @@
                                 @foreach ($listings as $listing)
                                 <li>
                                     <div class="text-gray-800 font-bold text-xl my-1"><a href="/listings/{{$listing->id}}">{{$listing->title}}</a></div>
-                                    <div class="text-gray-500 text-xs">Created at:{{$listing->created_at->format('M j, Y, g:i A')}}</div>
+                                    <div>
+                                        <h1><span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{$listing->created_at->diffForHumans()}}</span></h1>
+                                    </div>
                                 </li>
                                     <br>
                                 @endforeach
