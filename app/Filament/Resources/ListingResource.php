@@ -14,6 +14,10 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Http\Middleware\Auth;
+use Filament\Tables\Columns\TextColumn;
+use Gate;
+
+
 
 class ListingResource extends Resource
 {
@@ -39,9 +43,16 @@ class ListingResource extends Resource
 
                         Forms\Components\TextInput::make('title')
                             ->required(),
-                        Forms\Components\TextInput::make('user_id')
-                            ->default(auth()->id())
-                            ->disabled()
+                        Forms\Components\Select::make('user_id')
+                            ->relationship('author', 'name')
+                            ->label('Author')
+                            ->options(function () {
+                                return [
+                                    Auth::user()->id => Auth::user()->name,
+                                ];
+                            })
+                            // ->options(auth()->user()->name)
+                            // ->disabled()
                             ->dehydrated(),
                             Forms\Components\Section::make('Tags(Comma Separated)')
                         ->schema([
@@ -51,7 +62,7 @@ class ListingResource extends Resource
                         Forms\Components\MarkdownEditor::make('body')
                             ->required(),
 
-                    ])
+                    ])->columnSpanFull()
 
                 ])
             ]);

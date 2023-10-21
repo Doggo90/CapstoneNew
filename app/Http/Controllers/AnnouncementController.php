@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Announcement;
+use App\Models\User;
 
 class AnnouncementController extends Controller
 {
@@ -12,9 +13,8 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $announcements = Announcement::all();
-
-         return view('components.right-sidebar', compact('annoucements'));
+        $announcements = Announcement::with('author')->get();
+         return view('components.right-sidebar', compact('announcements'));
     }
 
     /**
@@ -36,9 +36,10 @@ class AnnouncementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Announcement $announcement)
     {
-        //
+        $users = User::all();
+        return view('listings.announcements', compact('announcement', 'users'));
     }
 
     /**

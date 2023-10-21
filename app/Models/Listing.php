@@ -20,6 +20,9 @@ class Listing extends Model
         if($filters['search'] ?? false){
             $query-> where('title', 'like', '%' . request('search'). '%')
             ->orWhere('body', 'like', '%' . request('search'). '%')
+            ->orWhereHas('author', function ($subQuery) {
+                $subQuery->where('name', 'like', '%' . request('search') . '%');
+            })
             ->orWhere('tags', 'like', '%' . request('search'). '%');
         }
 
@@ -29,7 +32,6 @@ class Listing extends Model
         parent::boot();
 
         static::created(function ($listing) {
-            // Increment the reputation of the user who created the post.
             $user = $listing->user;
             $user->increment('reputation', 1);
         });
@@ -38,7 +40,7 @@ class Listing extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function author(): belongsTo
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }

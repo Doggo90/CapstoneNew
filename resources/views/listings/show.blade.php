@@ -5,15 +5,24 @@
             <div class="mx-4">
                 <div class='flex items-center justify-center'>  <div class="rounded-xl border p-5 shadow-md w-9/12 bg-white">
                     <div class="flex w-full items-center justify-between border-b pb-3">
-                      <div class="flex items-center space-x-3">
-                        <img class="w-8 h-8 rounded-full img-fluid" src="{{ (!empty($listing->author->photo)) ? url($listing->author->photo) : url('upload/no_image.jpg')}}" alt="profile">
-                        <div class="text-lg font-bold text-slate-700">{{$listing->author->name}}</div>
+                        <div class="flex items-center">
+                          <a href="/profile/{{$listing->author->id ?? '1'}}">
+                            <img class="w-8 h-8 rounded-full img-fluid" src="{{ (!empty($listing->author->photo)) ? url($listing->author->photo) : url('upload/no_image.jpg')}}" alt="profile">
+                          </a>
+                          <div class="ml-2 text-lg font-bold text-slate-700">
+                            <a href="/profile/{{$listing->author->id ?? '1'}}">
+                              <small>
+                                  {{$listing->author->name ?? 'No Author'}}
+                              </small>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="flex items-center space-x-8">
+                          <div class="text-xs text-neutral-500">{{$listing->created_at->diffForHumans()}}</div>
+                        </div>
                       </div>
-                      <div class="flex items-center space-x-8">
-                        <x-listing-tags :tagsCsv="$listing->tags"/>
-                        <div class="text-xs text-neutral-500">{{$listing->created_at->diffForHumans()}}</div>
-                      </div>
-                    </div>
+
+
 
                     <div class="mt-4 mb-6">
                       <div class="mb-3 text-xl font-bold">{{$listing->title}}</div>
@@ -24,38 +33,28 @@
                       <div class="flex items-center justify-between text-slate-500">
                         <div class="flex space-x-4 md:space-x-8">
                           <div class="flex cursor-pointer items-center transition hover:text-slate-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                            </svg>
-                            <span>125</span>
-                          </div>
-                          <div class="flex cursor-pointer items-center transition hover:text-slate-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                            </svg>
-                            <span>4</span>
-
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/></svg>
+                            <span>{{$listing->upvote ?? '0'}}</span>
                           </div>
 
                         </div>
                       </div>
+                      <br>
+                      <x-listing-tags :tagsCsv="$listing->tags"/>
                 <br>
-                <h1><strong>COMMENTS</strong></h1><br><br>
+                <h1><strong>COMMENTS</strong></h1><br>
                 @if (auth()->user())
                 <form method="POST" action="{{ route('comments.store') }}">
                     @csrf
                     <x-card>
-                        <div class="flex flex-col text-left">
-                                <label
-                                    for="comments"
-                                    class="inline-block text-lg mb-2">
-                                    Comments
-                                </label>
+                        <div class="flex items-start">
+                            <a href="/profile/{{auth()->user()->id}}"><img class="w-8 h-8 rounded-full img-fluid mr-2" src="{{ (!empty(auth()->user()->photo)) ? url(auth()->user()->photo) : url('upload/no_image.jpg')}}" alt="profile">
+                            </a>
                                 <input
                                     type="text"
                                     class="border border-gray-200 rounded p-2 w-full"
                                     name="comment_body" id="comment_body"
-                                    placeholder="Enter your comment here..."/>
+                                    placeholder="What's on your mind?"/>
                                 @error('comment_body')
                                     <p class="p text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror
@@ -69,7 +68,8 @@
                         </button>
                     </x-card>
                 </form>
-
+                @else
+                <p>You need to log in to comment. <a href="/login">Click here.</a></p>
 
                 @endif {{-- (auth()->user()) END IF ^^^ --}}
 

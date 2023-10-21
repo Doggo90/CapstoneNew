@@ -68,6 +68,7 @@
 
             <div class="mb-6">
                 <button
+                    type="submit"
                     class="bg-lime-500 text-white rounded py-2 px-4 hover:bg-black">
                     Post
                 </button>
@@ -76,4 +77,4 @@
             </div>
         </form>
     </x-card>
-</x-layout>            
+</x-layout>

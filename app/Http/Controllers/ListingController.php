@@ -58,15 +58,9 @@ class ListingController extends Controller
             $formFields['logo'] = $filename;
         }
         $formFields['user_id'] = Auth::id();
-        // $user = auth()->user();
-        // $user->increment('reputation', 1);
+        $user = auth()->user();
+        $user->increment('reputation', 1);
         Listing::create($formFields);
-
-        // $notification = array(
-        //     'message' => 'Post Created Successfully',
-        //     'alert-type' => 'success'
-        // );
-
         return redirect('/index')->with('message', 'Post Created Successfully!');
     }
     public function edit(Listing $listing){

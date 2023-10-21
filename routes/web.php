@@ -10,6 +10,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Middleware\Auth;
 /*
@@ -84,6 +85,7 @@ Route::put('/listings/{listing}', [ListingController::class, 'update']);
 Route::delete('/listings/{listing}', [ListingController::class, 'delete'])->name('listings.delete');
 
 Route::get('/listings/{listing}', [ListingController::class, 'show'])->name('listings.show');
-Route::post('/listings', [CommentsController::class, 'store'])->name('comments.store');
+Route::get('/announcements/{announcement}', [AnnouncementController::class, 'show'])->name('listings.announcement');
+Route::post('/listings1', [CommentsController::class, 'store'])->name('comments.store');
 
 Route::get('/logout', [UserController::class, 'Logout'])->name('user.logout');

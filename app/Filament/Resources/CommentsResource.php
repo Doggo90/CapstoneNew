@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Http\Middleware\Auth;
 
 class CommentsResource extends Resource
 {
@@ -39,8 +40,9 @@ class CommentsResource extends Resource
                     Forms\Components\Select::make('listing_id')
                         ->relationship('post', 'title')
                         ->required(),
-                    Forms\Components\TextInput::make('user_id')
-                        ->default(auth()->id())
+                        Forms\Components\Select::make('user_id')
+                        ->relationship('author', 'name')
+                        ->label('Author')
                         ->disabled()
                         ->dehydrated(),
                     Forms\Components\TextInput::make('comment_body')
