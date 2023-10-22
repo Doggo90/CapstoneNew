@@ -7,6 +7,8 @@ use App\Models\Listing;
 use App\Models\User;
 use App\Models\Comments;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\PostNotification;
+
 
 class CommentsController extends Controller
 {
@@ -39,10 +41,13 @@ class CommentsController extends Controller
         ]);
         $formFields['user_id'] = Auth::id();
         // $formFields['listing_id'] = Listing::id();
-        Comments::create($formFields);
+        $comment = Comments::create($formFields);
+        $comment->post->author->notify(new PostNotification($comment));
         return redirect()->route('listings.show', ['listing' => $formFields['listing_id']])
         ->with('message', 'Comment Posted Successfully!');
+
     }
+
 
     /**
      * Display the specified resource.
