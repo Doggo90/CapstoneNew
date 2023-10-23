@@ -25,9 +25,11 @@ class ListingResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Posts Management';
 
     protected static ?string $navigationLabel = 'Posts';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -48,7 +50,7 @@ class ListingResource extends Resource
                             ->label('Author')
                             ->options(function () {
                                 return [
-                                    Auth::user()->id => Auth::user()->name,
+                                    auth()->user()->id => auth()->user()->name,
                                 ];
                             })
                             // ->options(auth()->user()->name)
@@ -72,9 +74,6 @@ class ListingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->searchable()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('author.name')
                     ->searchable()
                     ->sortable(),
@@ -113,7 +112,7 @@ class ListingResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\CommentsRelationManager::class,
         ];
     }
 

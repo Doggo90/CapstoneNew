@@ -9,4 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateListing extends CreateRecord
 {
     protected static string $resource = ListingResource::class;
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

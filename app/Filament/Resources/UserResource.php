@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
+use App\Models\Organizations;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,16 +13,20 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\DB;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Users Management';
 
     protected static ?string $navigationLabel = 'Users';
+
+    protected static ?int $navigationSort = 1;
 
 
 
@@ -50,7 +55,8 @@ class UserResource extends Resource
                                 'user' => 'user',
                             ])
                             ->default('user'),
-
+                        Forms\Components\Select::make('Ogranizations')
+                            ->relationship('organization', 'nickname')
                     ])
 
                 ])
@@ -64,6 +70,9 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('organization.nickname')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('email')
@@ -97,12 +106,39 @@ class UserResource extends Resource
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
-
+                    Tables\Actions\Action::make('reset_reputation')
+                        ->label('Reset Reputation')
+                        ->icon('heroicon-o-arrow-path')
+                        ->color('warning')
+                        ->action(function(User $user){
+                            $user->reputation = 0;
+                            $user->save();
+                            Notification::make()
+                                ->title('Reputation Reset Success!')
+                                ->body('Selected users&rsquo; reputations have been reset.')
+                                ->icon('heroicon-o-arrow-path')
+                                ->color('success')
+                                ->send();
+                        }),
                 ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('reset_reputation')
+                        ->label('Reset Reputation')
+                        ->icon('heroicon-o-arrow-path')
+                        ->color('warning')
+                        ->action(function(User $users){
+                            DB::table('users')->update(['reputation' => 0]);
+                            Notification::make()
+                                ->title('Reputation Reset Success!')
+                                ->body('Selected users&rsquo; reputations have been reset.')
+                                ->icon('heroicon-o-arrow-path')
+                                ->color('success')
+                                ->send();
+
+                        }),
                 ]),
             ]);
     }

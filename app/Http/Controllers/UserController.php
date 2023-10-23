@@ -31,7 +31,7 @@ class UserController extends Controller
     public function profileIndex(User $user)
     {
         $listings = $user->listings()->paginate(5);
-        
+
         $reputation = Auth::user()->reputation;
         return view('user.user_profile', compact('user', 'listings'));
     }
@@ -43,6 +43,11 @@ class UserController extends Controller
         $data ->save();
         return redirect()->back()->with('message','Phone Registered Successfully!');;
     }
+    public function firstTimeLog(User $user)
+    {
+        return view('user.newLogin', compact('user'));
+    }
+
 
 
 }

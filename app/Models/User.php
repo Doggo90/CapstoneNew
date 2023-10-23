@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -69,6 +70,10 @@ class User extends Authenticatable implements FilamentUser
     public function listings(): HasMany
     {
         return $this->hasMany(Listing::class);
+    }
+    public function organization(): belongsTo
+    {
+        return $this->belongsTo(Organizations::class);
     }
 
 

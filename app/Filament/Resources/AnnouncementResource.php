@@ -17,10 +17,11 @@ class AnnouncementResource extends Resource
 {
     protected static ?string $model = Announcement::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-megaphone';
 
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Announcements Management';
 
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -38,6 +39,7 @@ class AnnouncementResource extends Resource
                             ->required(),
                         Forms\Components\TextInput::make('user_id')
                             ->default(auth()->id())
+                            ->hidden()
                             ->disabled()
                             ->dehydrated(),
                         Forms\Components\MarkdownEditor::make('body')
@@ -53,17 +55,13 @@ class AnnouncementResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                ->searchable()
-                ->sortable(),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('author.name', 'Author Name')
                     ->sortable()
                     ->searchable(),
-
-                    Tables\Columns\TextColumn::make('body')
+                Tables\Columns\TextColumn::make('body')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')

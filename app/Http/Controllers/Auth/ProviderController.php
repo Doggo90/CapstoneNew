@@ -15,20 +15,27 @@ class ProviderController extends Controller
     }
     public function callback() {
         $googleUser = Socialite::driver('google')->user();
- 
-        $user = User::updateOrCreate([
-            'google_id' => $googleUser->id,
-        ], [
-            'name' => $googleUser->name,
-            'username' => User::generateUsername($googleUser->nickname),
-            'email' => $googleUser->email,
-            'google_token' => $googleUser->token,
-            'photo' => $googleUser->getAvatar(),
-        ]);
-     
-        Auth::login($user);
-     
-        return redirect('/index')->with('message', 'Logged in Successfully');
+
+        $user = User::where('google_id', $googleUser->id)->first();
+
+        if (!$user) {
+            // User doesn't exist, create a new user
+            $user = User::create([
+                'google_id' => $googleUser->id,
+                'name' => $googleUser->name,
+                'username' => User::generateUsername($googleUser->nickname),
+                'email' => $googleUser->email,
+                'google_token' => $googleUser->token,
+                'photo' => $googleUser->getAvatar(),
+            ]);
+
+            Auth::login($user);
+            return redirect('/new-login')->with('message', 'Welcome! You are now logged in.');
+        } else {
+            // User already exists, log them in
+            Auth::login($user);
+            return redirect('/index')->with('message', 'Logged in Successfully');
+        }
     }
-    
+
 }

@@ -18,11 +18,12 @@ class CommentsResource extends Resource
 {
     protected static ?string $model = Comments::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-oval-left-ellipsis';
 
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Posts Management';
 
     protected static ?string $navigationLabel = 'Comments';
+    protected static ?int $navigationSort = 2;
 
 
     public static function form(Form $form): Form
@@ -60,18 +61,25 @@ class CommentsResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id'),
-                Tables\Columns\TextColumn::make('author.name')
+                Tables\Columns\TextColumn::make('post.author.name')
+                    ->label('Post Author')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('post.title')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('author.name')
+                    ->label('Commenter')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('comment_body')
+                    ->label('Comment')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_helpful')
-                    ->boolean(),
+                    ->label('Helpful')
+                    ->boolean()
+                    ->sortable(),
 
             ])
             ->filters([

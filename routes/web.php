@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:user'])->group(function(){
 
     Route::get('/profile/{user}', [UserController::class, 'profileIndex'])->name('user.profile');
+    Route::get('/new-login', [UserController::class, 'firstTimeLog'])->name('user.first');
     Route::post('/profile/store', [UserController::class, 'storePhone'])->name('user.update.phone');
 
 });// END USER MIDDLEWARE

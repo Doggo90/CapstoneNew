@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('listings', function (Blueprint $table) {
-            $table->foreignId('comments')->constrained('comments')->cascadeOnDelete();
+        Schema::create('organizations', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('nickname')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('listings', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('organizations');
     }
 };
