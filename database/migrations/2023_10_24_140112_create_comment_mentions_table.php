@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('organizations', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+        Schema::create('comment_mentions', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('comment_id')->constrained('comments')->cascadeOnDelete();
+            $table->foreignId('mentioned_user_id')->constrained('users')->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('organizations', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('comment_mentions');
     }
 };

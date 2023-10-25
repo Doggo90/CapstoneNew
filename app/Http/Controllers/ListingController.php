@@ -15,20 +15,19 @@ class ListingController extends Controller
 {
     public function index(Request $request)
     {
-        $sortBy = $request->input('sort_by', 'created_at');
         $announcements = Announcement::all();
-
+        $sortBy = $request->input('sort_by', 'created_at');
         $listingsQuery = Listing::query();
+
 
         // Apply sorting based on the selected criteria
         if ($sortBy === 'title') {
             $listingsQuery->orderBy('title');
-        } elseif ($sortBy === 'tags') {
-            $listingsQuery->orderBy('tags');
+        } elseif ($sortBy === 'comments_count') {
+            $listingsQuery->orderBy('comments_count', 'desc');
         } elseif ($sortBy === 'created_at') {
             $listingsQuery->latest();
         }
-
         $listings = $listingsQuery->filter(request(['tag', 'search']))->get();
         return view('listings.index', compact('listings', 'sortBy', 'announcements'));
     }
@@ -61,6 +60,7 @@ class ListingController extends Controller
         $user = auth()->user();
         $user->increment('reputation', 1);
         Listing::create($formFields);
+        dd($listing);
         return redirect('/index')->with('message', 'Post Created Successfully!');
     }
     public function edit(Listing $listing){
@@ -93,5 +93,18 @@ class ListingController extends Controller
     public function delete(Listing $listing){
         $listing->delete();
         return redirect('/index')->with('message', 'Post Deleted Successfully');
+    }
+    public function isArchived(Request $request , Listing $listing){
+        $formFields = $request->validate([
+            'is_archived' => 'required',
+        ]);
+        // dd($listing->is_archived);
+        $listing->is_archived = $formFields['is_archived'];
+        $listing->update($formFields);
+        return redirect()->back();
+    }
+    public function ArchivedPosts(Listing $listing){
+        $listings = Listing::all();
+        return view('/listings/archives', compact('listings'));
     }
 }

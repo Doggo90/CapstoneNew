@@ -13,9 +13,20 @@ class Comments extends Model
     use HasFactory;
     protected $guarded=[];
 
+    protected static function booted()
+    {
+        static::created(function ($comment) {
+            $comment->listing->comments_count++;
+            $comment->listing->save();
+        });
+    }
     public function comment(): BelongsTo
     {
         return $this->belongsTo(Comments::class);
+    }
+    public function listing(): BelongsTo
+    {
+        return $this->belongsTo(Listing::class);
     }
     public function author(): BelongsTo
     {
@@ -28,6 +39,10 @@ class Comments extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public function mentions(): hasMany
+    {
+        return $this->hasMany(Mention::class);
     }
                 // REPUTATION IF A COMMENT IS CREATED
     protected static function boot()

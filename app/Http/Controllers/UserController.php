@@ -47,6 +47,19 @@ class UserController extends Controller
     {
         return view('user.newLogin', compact('user'));
     }
+    public function suggestUsers(Request $request) {
+        $query = $request->input('query');
+        $users = User::where('username', 'like', "%$query%")
+            ->orWhere('name', 'like', "%$query%")
+            ->get();
+        foreach ($users as $user) {
+            $user->mention()->attach('comment_mentions', [
+                'mentioned_user_id' => $user->id,
+                'comment_id'  => $comment->id,
+            ]);
+        }
+        return response()->json($users);
+    }
 
 
 

@@ -84,9 +84,12 @@ Route::get('/listings/{listing}/edit',[ListingController::class, 'edit'])->name(
 Route::put('/listings/{listing}', [ListingController::class, 'update']);
 
 Route::delete('/listings/{listing}', [ListingController::class, 'delete'])->name('listings.delete');
+Route::get('/listings/archived', [ListingController::class, 'ArchivedPosts'])->name('listings.archived');
 
 Route::get('/listings/{listing}', [ListingController::class, 'show'])->name('listings.show');
 Route::get('/announcements/{announcement}', [AnnouncementController::class, 'show'])->name('listings.announcement');
 Route::post('/listings1', [CommentsController::class, 'store'])->name('comments.store');
 
 Route::get('/logout', [UserController::class, 'Logout'])->name('user.logout');
+Route::get('/users/suggestions', [UserController::class, 'suggestUsers']);
+Route::POST('/listings/{listing}', [ListingController::class, 'isArchived']);

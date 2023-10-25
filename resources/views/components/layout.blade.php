@@ -14,6 +14,7 @@
             <!-- Toastr CSS -->
             <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
             <!-- End Toastr CSS -->
+
         <script src="//unpkg.com/alpinejs" defer></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
@@ -100,6 +101,6 @@
                break;
             }
             @endif
-           </script>
+        </script>
            <!-- End Toastr js -->
 </html>

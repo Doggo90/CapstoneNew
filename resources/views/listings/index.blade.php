@@ -45,17 +45,18 @@
         </div>
         @include('partials._sorting')
         @unless (count($listings) == 0)
-        @foreach ($listings as $listing)
+            @foreach ($listings as $listing)
+                @if($listing->is_archived == 0)
+                    <x-listing-card :listing="$listing" />
 
-            <x-listing-card :listing="$listing" />
-
-            <br>
-        @endforeach
+                    <br>
+                @endif
+            @endforeach
     </div>
 
-    @else
-    <p>No Listings Found!</p>
-    @endunless
+        @else
+            <p>No Listings Found!</p>
+        @endunless
 </div>
 
 

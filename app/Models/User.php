@@ -75,6 +75,10 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->belongsTo(Organizations::class);
     }
+    public function mention(): HasMany
+    {
+        return $this->hasMany(Mention::class);
+    }
 
 
 

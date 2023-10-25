@@ -27,22 +27,43 @@ class CommentsController extends Controller
     {
 
     }
+    public function mention(Comments $comments, User $user)
+    {
+        // Check if the user being mentioned exists.
+        if (!$user->exists()) {
+            abort(404);
+        }
+
+        // Add the user to the comment's mentions list.
+        $comments->mentions()->attach($user);
+
+        // Save the comment.
+        $comments->save();
+
+        // Return the comment.
+        return $comments;
+    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $formFields = $request->validate([
             'comment_body' => 'required',
             'listing_id' => 'required',
-            'user_id' => 'required'
+            'user_id' => 'required',
         ]);
         $formFields['user_id'] = Auth::id();
         // $formFields['listing_id'] = Listing::id();
         $comment = Comments::create($formFields);
-        $comment->post->author->notify(new PostNotification($comment));
+
+        if(auth()->user()->email != $comment->post->author->email){
+            $comment->post->author->notify(new PostNotification($comment));
+            
+            return redirect()->route('listings.show', ['listing' => $formFields['listing_id']])
+            ->with('message', 'Comment Posted Successfully!');
+        }
         return redirect()->route('listings.show', ['listing' => $formFields['listing_id']])
         ->with('message', 'Comment Posted Successfully!');
 
